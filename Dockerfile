@@ -23,7 +23,7 @@ RUN groupadd -g ${GROUP_ID} ${USER} \
 
 ENV GOSU_VERSION 1.7
 RUN set -x \
-    && apt-get update && apt-get install -y --no-install-recommends ca-certificates software-properties-common curl \
+    && apt-get update && apt-get install -y --no-install-recommends ca-certificates software-properties-common curl wget \
     && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
     && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
     && export GNUPGHOME="$(mktemp -d)" \
@@ -33,7 +33,7 @@ RUN set -x \
     && chmod +x /usr/local/bin/gosu \
     && apt-add-repository ppa:bitcoin/bitcoin \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash \
-	 && apt-get update && apt-get install -y libdb4.8-dev libdb4.8++-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools wget nodejs \
+	 && apt-get update && apt-get install -y libdb4.8-dev libdb4.8++-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools nodejs \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && gosu nobody true \
 	 && npm install pm2 -g 
