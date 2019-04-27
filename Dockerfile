@@ -46,7 +46,7 @@ RUN wget -O /tmp/${COMPONENT}.tar.gz "https://cdn.coindroid.org/${COIN}/${COIN}.
     && rm -rf /tmp/*
 
 
-RUN git clone https://github.com/masternoder/single-api.git /opt/ \
+RUN git clone https://github.com/masternoder/single-api.git /opt/single-api \
     && cd /opt/single-api \ 
 	 && npm i
 
