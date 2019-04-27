@@ -41,7 +41,8 @@ RUN set -x \
 RUN wget -O /tmp/${COMPONENT}.tar.gz "https://cdn.coindroid.org/${COIN}/${COIN}.tar.gz" \
     && cd /tmp/ \
     && tar zxvf ${COMPONENT}.tar.gz \
-    && mv /tmp/${COMPONENT}-* /opt/${COMPONENT} \
+	 && mkdir -p /opt/${COMPONENT}/daemon \
+    && mv /tmp/cdn_coindroid/digitalcoin/daemon/* /opt/${COMPONENT}/daemon \
     && rm -rf /tmp/*
 
 
