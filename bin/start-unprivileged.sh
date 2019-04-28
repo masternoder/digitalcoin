@@ -2,7 +2,7 @@
 set -x
 
 EXECUTABLE=/opt/digitalcoin/daemon/digitalcoind
-DIR=$HOME/.digitalcoincore
+DIR=$HOME/.digitalcoin
 FILENAME=digitalcoin.conf
 FILE=$DIR/$FILENAME
 

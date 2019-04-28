@@ -66,7 +66,7 @@ RUN git clone https://github.com/masternoder/single-api.git /opt/single-api \
 #     && touch /var/log/cron.log
 
 #  7999 default Digitalcoin p2p port ,5691 port for single API
-EXPOSE 7999 8000 
+EXPOSE 7999 5691 
 
 VOLUME ["${HOME}"]
 WORKDIR ${HOME}
