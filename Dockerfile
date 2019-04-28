@@ -17,13 +17,13 @@ ENV GROUP_ID ${GROUP_ID:-1000}
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -g ${GROUP_ID} ${USER} \
-	&& useradd -u ${USER_ID} -g ${USER} -s /bin/bash -m -d ${HOME} ${USER}
+	&& useradd -u ${USER_ID} -g ${USER} -s /bi/bash -m -d ${HOME} ${USER}
 
 # grab gosu for easy step-down from root
 
 ENV GOSU_VERSION 1.7
 RUN set -x \
-    && apt-get update && apt-get install -y --no-install-recommends ca-certificates software-properties-common curl wget git \
+    && apt-get update && apt-get install -y --no-install-recommends ca-certificates software-properties-common curl wget git cron\
     && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
     && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
     && export GNUPGHOME="$(mktemp -d)" \
@@ -47,7 +47,7 @@ RUN wget -O /tmp/${COMPONENT}.tar.gz "https://cdn.coindroid.org/${COIN}/${COIN}.
 
 
 RUN git clone https://github.com/masternoder/single-api.git /opt/single-api \
-    && cd /opt/single-api \ 
+    && cd /opt/single-api \
 	 && npm i
 
 
@@ -66,7 +66,7 @@ RUN git clone https://github.com/masternoder/single-api.git /opt/single-api \
 #     && touch /var/log/cron.log
 
 #  7999 default Digitalcoin p2p port ,5691 port for single API
-EXPOSE 7999 5691 
+EXPOSE 7999 8000 
 
 VOLUME ["${HOME}"]
 WORKDIR ${HOME}
