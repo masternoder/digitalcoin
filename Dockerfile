@@ -33,7 +33,7 @@ RUN set -x \
     && chmod +x /usr/local/bin/gosu \
     && apt-add-repository ppa:bitcoin/bitcoin \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash \
-	 && apt-get update && apt-get install -y libdb4.8-dev libdb4.8++-dev  libzmq3-dev libevent-pthreads-2.0-5  libminiupnpc-dev libboost-all-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools nodejs \
+	 && apt-get update && apt-get install -y libdb4.8-dev libdb4.8++-dev libevent-2.0-5 libzmq3-dev libevent-pthreads-2.0-5  libminiupnpc-dev libboost-all-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools nodejs \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && gosu nobody true \
 	 && npm install pm2 -g 
