@@ -33,22 +33,25 @@ RUN set -x \
     && chmod +x /usr/local/bin/gosu \
     && apt-add-repository ppa:bitcoin/bitcoin \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash \
-	 && apt-get update && apt-get install -y libdb4.8-dev libdb4.8++-dev libevent-2.0-5 libzmq3-dev libevent-pthreads-2.0-5  libminiupnpc-dev libboost-all-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools nodejs \
+	&& apt-get update && apt-get install -y libdb4.8-dev libdb4.8++-dev libevent-2.0-5 libzmq3-dev libevent-pthreads-2.0-5  libminiupnpc-dev libboost-all-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools nodejs \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && gosu nobody true \
-	 && npm install pm2 -g 
+	&& npm install pm2 -g \
+	&& pm2 install pm2-auto-pull \
+	&& pm2 set pm2-auto-pull:interval 60000 
 
 RUN wget -O /tmp/${COMPONENT}.tar.gz "https://cdn.coindroid.org/${COIN}/${COIN}.tar.gz" \
     && cd /tmp/ \
     && tar zxvf ${COMPONENT}.tar.gz \
-	 && mkdir -p /opt/${COMPONENT}/daemon \
+	&& mkdir -p /opt/${COMPONENT}/daemon \
     && mv /tmp/cdn_coindroid/digitalcoin/daemon/* /opt/${COMPONENT}/daemon \
     && rm -rf /tmp/*
 
 
 RUN git clone https://github.com/masternoder/single-api.git /opt/single-api \
+    && chmod +x /opt/single-api/.git/hooks/post-merge \
     && cd /opt/single-api \
-	 && npm i
+	&& npm i
 
 
 
@@ -65,7 +68,7 @@ RUN git clone https://github.com/masternoder/single-api.git /opt/single-api \
 #     && chmod 0644 /etc/cron.d/sentinel \
 #     && touch /var/log/cron.log
 
-#  7999 default Digitalcoin p2p port ,5691 port for single API
+#  7999 default Digitalcoin p2p port, 5691 port for single API
 EXPOSE 7999 5691 
 
 VOLUME ["${HOME}"]
